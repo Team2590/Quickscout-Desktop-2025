@@ -82,7 +82,7 @@ export default function Competition() {
     }
 
     const handleEditDataInput = (key, id, value) => {
-        setEditingData(prev => ({ ...DataSchema.parse({ ...prev, [key]: value }), ...id }))
+        setEditingData(prev => ({ id, ...DataSchema.parse({ ...prev, [key]: value }) }))
     }
 
     return (

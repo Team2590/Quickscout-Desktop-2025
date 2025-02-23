@@ -1,15 +1,9 @@
 import { DataSchema } from './dataSchema'
 
 const generateID = (competition) => {
-    const key = `${competition}-id`
-    const storedID = Number(localStorage.getItem(key))
-    if (storedID) {
-        localStorage.setItem(key, storedID + 1)
-        return storedID + 1
-    } else {
-        localStorage.setItem(key, 1)
-        return 1
-    }
+    const data = JSON.parse(localStorage.getItem(competition))
+    if (data) return data[data.length - 1].id
+    return 1
 }
 
 export const parseScan = (competition, scanned) => {
