@@ -81,41 +81,43 @@ export default function Competition() {
         setEditing(false)
     }
 
-    const handleEditDataInput = (key, value) => {
-        setEditingData(prev => DataSchema.parse({ ...prev, [key]: value }))
+    const handleEditDataInput = (key, id, value) => {
+        setEditingData(prev => ({ ...DataSchema.parse({ ...prev, [key]: value }), ...id }))
     }
 
     return (
         <>
-            <div className={`modal ${editing ? 'd-block' : ''}`} aria-hidden={editing}>
-                <div className='modal-dialog'>
-                    <div className='modal-content'>
-                        <div className='modal-header'>
-                            <span className='h4'>{editingData.id}</span>
-                        </div>
-                        <div className='modal-body'>
-                            {Object.keys(editingData).map(key => {
-                                const value = key == 'startingPos' ? String(editingData[key]) : editingData[key]
-                                return (
-                                    <div key={key} className='d-flex flex-row align-items-baseline gap-3 mb-3'>
-                                        <span>{key}:</span>
-                                        <input
-                                            type='text'
-                                            className='form-control d-inline w-25'
-                                            defaultValue={value}
-                                            onChange={(e) => handleEditDataInput(key, e.target.value)}
-                                        />
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className='modal-footer'>
-                            <button className='btn btn-success' onClick={saveEdit}>Confirm</button>
-                            <button className='btn btn-danger' onClick={() => setEditing(false)}>Close</button>
+            {editing && (
+                <div className={`modal ${editing ? 'd-block' : ''}`} aria-hidden={editing}>
+                    <div className='modal-dialog'>
+                        <div className='modal-content'>
+                            <div className='modal-header'>
+                                <span className='h4'>{editingData.id}</span>
+                            </div>
+                            <div className='modal-body'>
+                                {Object.keys(editingData).map(key => {
+                                    const value = key == 'startingPos' ? String(editingData[key]) : editingData[key]
+                                    return (
+                                        <div key={key} className='d-flex flex-row align-items-baseline gap-3 mb-3'>
+                                            <span>{key}:</span>
+                                            <input
+                                                type='text'
+                                                className='form-control d-inline w-25'
+                                                defaultValue={value}
+                                                onChange={(e) => handleEditDataInput(key, editingId, e.target.value)}
+                                            />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className='modal-footer'>
+                                <button className='btn btn-success' onClick={saveEdit}>Confirm</button>
+                                <button className='btn btn-danger' onClick={() => setEditing(false)}>Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
             <div className={`modal ${deleting ? 'd-block' : ''}`} aria-labelledby='deleteModalLabel' aria-hidden={deleting}>
                 <div className='modal-dialog'>
                     <div className='modal-content'>
