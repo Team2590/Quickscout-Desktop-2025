@@ -2,7 +2,7 @@ import { DataSchema } from './dataSchema'
 
 const generateID = (competition) => {
     const data = JSON.parse(localStorage.getItem(competition))
-    if (data) return data[data.length - 1].id
+    if (data && data.length > 0) return data[data.length - 1].id + 1
     return 1
 }
 
