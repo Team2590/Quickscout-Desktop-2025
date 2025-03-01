@@ -20,5 +20,5 @@ export const DataSchema = z.object({
     teleopProcessorAlgae: z.coerce.number(),
     teleopNetAlgae: z.coerce.number(),
     timeTakenToClimb: z.coerce.number(),
-    lostComms: z.coerce.boolean(),
+    lostComms: z.coerce.boolean().default(false),
 })
