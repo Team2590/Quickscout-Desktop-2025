@@ -20,14 +20,17 @@ export default function Competition() {
     const handleSubmit = (e) => {
         e.preventDefault()
         formRef.current.reset()
-        const actualData = parseScan(competition, scanData)
-        setData(prevData => {
-            if (prevData) {
-                return [...prevData, actualData]
-            } else {
-                return [actualData]
-            }
-        })
+        if (scanData) {
+            const actualData = parseScan(competition, scanData)
+            setData(prevData => {
+                if (prevData) {
+                    return [...prevData, actualData]
+                } else {
+                    return [actualData]
+                }
+            })
+        }
+        setScanData()
     }
 
     const downloadCSV = () => {
