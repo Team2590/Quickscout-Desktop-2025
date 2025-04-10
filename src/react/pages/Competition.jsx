@@ -21,7 +21,7 @@ export default function Competition() {
         e.preventDefault()
         formRef.current.reset()
         if (scanData) {
-            const actualData = parseScan(competition, scanData)
+            const actualData = parseScan(scanData)
             setData(prevData => {
                 if (prevData) {
                     return [...prevData, actualData]
@@ -64,10 +64,8 @@ export default function Competition() {
         setDeleting(false)
     }
 
-    const enterEditing = (id, teamNum) => {
-        const filtered = data.filter(d => {
-            return d.id == id && d.teamNum == teamNum
-        })[0]
+    const enterEditing = (id) => {
+        const filtered = data.filter(d => d.id == id)[0]
         setEditingData(filtered)
         setEditingId(id)
         setEditing(true)
@@ -168,7 +166,7 @@ export default function Competition() {
                         <pre>{JSON.stringify(d)}</pre>
                         <div className='d-flex flex-row gap-2'>
                             <button className='btn btn-danger' style={{ width: 'fit-content' }} onClick={() => enterDeleting(d.id)}>Delete</button>
-                            <button className='btn btn-info' onClick={() => enterEditing(d.id, d.teamNum)}>Edit</button>
+                            <button className='btn btn-info' onClick={() => enterEditing(d.id)}>Edit</button>
                         </div>
                     </div>
                 )
