@@ -40,8 +40,8 @@ export default function Home() {
     }, [compName])
 
     return (
-        <>
-            <form className='card card-body mx-auto' style={{ maxWidth: 400, marginTop: '22%' }} onSubmit={handleSubmit}>
+        <div className='card card-body mx-auto' style={{ maxWidth: 400, marginTop: '22%' }}>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Competition:</label>
                     <input
@@ -56,31 +56,32 @@ export default function Home() {
                         <span>Competition already exists</span>
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Create</button>
+                <button type="submit" className="btn btn-primary w-100" disabled={!compName}>Create</button>
+            </form>
+            <div className='mt-4 d-flex flex-row justify-content-between'>
                 {localStorage.length > 0 && (
-                    <div className='mt-4'>
-                        <div style={{ marginInline: 'auto', width: 'fit' }}>
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select existing
-                                </button>
-                                <ul className="dropdown-menu">
-                                    {[...Array(localStorage.length)].map((x, i) => {
-                                        const path = localStorage.key(i)
-                                        return (
-                                            <li>
-                                                <Link className="dropdown-item" to={`/competitions/${path}`}>
-                                                    {localStorage.key(i)}
-                                                </Link>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
+                    <div style={{ width: 'fit' }}>
+                        <div className="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Select existing
+                            </button>
+                            <ul className="dropdown-menu">
+                                {[...Array(localStorage.length)].map((x, i) => {
+                                    const path = localStorage.key(i)
+                                    return (
+                                        <li>
+                                            <Link className="dropdown-item" to={`/competitions/${path}`}>
+                                                {localStorage.key(i)}
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
                         </div>
                     </div>
                 )}
-            </form>
-        </>
+                <Link to='/import' className='btn btn-secondary'>Import</Link>
+            </div>
+        </div>
     )
 }
